@@ -119,7 +119,7 @@ class EA_Controller extends CI_Controller
 
             config([
                 'language' => $session_language,
-                'language_code' => array_search($session_language, $language_codes) ?: 'en',
+                'language_code' => array_search($session_language, $language_codes) ?: 'pt-br',
             ]);
         }
 

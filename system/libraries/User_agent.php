@@ -632,7 +632,7 @@ class CI_User_agent {
 	 * @param	string	$lang
 	 * @return	bool
 	 */
-	public function accept_lang($lang = 'en')
+	public function accept_lang($lang = 'pt-br')
 	{
 		return in_array(strtolower($lang), $this->languages(), TRUE);
 	}

@@ -673,15 +673,15 @@ App.Pages.Booking = (function () {
         const selectedDateTime = `${selectedDate} ${selectedTime}`;
 
         let formattedSelectedDate;
-
-        if (selectedDateObject) {
-            formattedSelectedDate = App.Utils.Date.format(
-                selectedDateTime,
-                vars('date_format'),
-                vars('time_format'),
-                true,
-            );
-        }
+        // -- FUNÇÃO COMENTADA PARA QUE O IOS CONSIGA PROSSEGUIR COM O AGENDAMENTO (TRAVA NO STEP 3)
+        // if (selectedDateObject) {
+        //     formattedSelectedDate = App.Utils.Date.format(
+        //         selectedDateTime,
+        //         vars('date_format'),
+        //         vars('time_format'),
+        //         true,
+        //     );
+        // }
 
         const timezoneOptionText = $selectTimezone.find('option:selected').text();
 

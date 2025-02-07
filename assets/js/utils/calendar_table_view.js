@@ -730,6 +730,20 @@ App.Utils.CalendarTableView = (function () {
             eventResize: onEventResize,
             eventDrop: onEventDrop,
             select: (info) => onSelect(info, fullCalendar),
+            // ✅ Customização da exibição dos eventos, usado para adicionar nome do atendente
+            eventContent: function(arg) {
+                console.log("Dados do evento:", arg.event);
+                let providerName = arg.event.extendedProps.provider_name || ''; // Nome do ATENDENTE
+
+                return {
+                    html: `
+                        <div class="custom-event">
+                            <strong>${arg.event.title}</strong><br>
+                            <span style="font-size: 11px; color: #333; font-weight: bold;">${lang('provider')}: ${providerName}</span><br>
+                        </div>
+                    `
+                };
+            }
         });
 
         fullCalendar.render();
@@ -908,6 +922,10 @@ App.Utils.CalendarTableView = (function () {
                 allDay: false,
                 color: appointment.color,
                 data: appointment, // Store appointment data for later use.
+                extendedProps: {
+                    provider_name: `${appointment?.provider?.first_name} ${appointment?.provider?.last_name}`,
+                    extra_info: appointment?.extra_detail || 'Sem detalhes'
+                }
             });
         }
 

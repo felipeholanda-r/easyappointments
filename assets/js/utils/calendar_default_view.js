@@ -1206,6 +1206,7 @@ App.Utils.CalendarDefaultView = (function () {
                         title.push(customerInfo.join(' '));
                     }
 
+                    // ABAIXO ADICIONADO INFORMAÇÕES DO ATENDENTE NO BOX DO AGENDAMENTO
                     const appointmentEvent = {
                         id: appointment.id,
                         title: title.join(' - '),
@@ -1214,6 +1215,10 @@ App.Utils.CalendarDefaultView = (function () {
                         allDay: false,
                         color: appointment.color,
                         data: appointment, // Store appointment data for later use.
+                        extendedProps: {
+                            provider_name: `${appointment?.provider?.first_name} ${appointment?.provider?.last_name}`,
+                            extra_info: appointment?.extra_detail || 'Sem detalhes'
+                        }
                     };
 
                     calendarEventSource.push(appointmentEvent);
@@ -1507,6 +1512,20 @@ App.Utils.CalendarDefaultView = (function () {
             eventResize: onEventResize,
             eventDrop: onEventDrop,
             select: onSelect,
+            // ✅ Customização da exibição dos eventos, usado para adicionar nome do atendente
+            eventContent: function(arg) {
+                console.log("Dados do evento:", arg.event);
+                let providerName = arg.event.extendedProps.provider_name || ''; // Nome do ATENDENTE
+                let attendant = providerName != "" ? lang('provider')+':' : "";
+                return {
+                    html: `
+                        <div class="custom-event">
+                            <strong>${arg.event.title}</strong><br>
+                            <span style="font-size: 11px; color: #333; font-weight: bold;">${attendant} ${providerName}</span><br>
+                        </div>
+                    `
+                };
+            }
         });
 
         fullCalendar.render();
