@@ -734,12 +734,12 @@ App.Utils.CalendarTableView = (function () {
             eventContent: function(arg) {
                 console.log("Dados do evento:", arg.event);
                 let providerName = arg.event.extendedProps.provider_name || ''; // Nome do ATENDENTE
-
+                let attendant = providerName != "" ? lang('provider')+':' : "";
                 return {
                     html: `
                         <div class="custom-event">
                             <strong>${arg.event.title}</strong><br>
-                            <span style="font-size: 11px; color: #333; font-weight: bold;">${lang('provider')}: ${providerName}</span><br>
+                            <span style="font-size: 11px; color: #333; font-weight: bold;">${attendant} ${providerName}</span><br>
                         </div>
                     `
                 };
